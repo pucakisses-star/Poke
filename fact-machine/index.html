@@ -881,13 +881,34 @@
       cancelAnimationFrame(raf);
       if (!document.hidden) raf = requestAnimationFrame(loop);
     });
-    // ?fx=rocket|truck|bird|sat|crack — deterministic spawn for testing
-    var q = /[?&]fx=([a-z]+)/.exec(location.search);
+    // ?fx=rocket|truck|bird|sat|crack (comma-separable) — deterministic spawn
+    // for testing; add &fxstep=N to freeze the scene exactly N frames in
+    var q = /[?&]fx=([a-z,]+)/.exec(location.search);
     if (q) {
-      spawnEffect(q[1], W * 0.5, H * 0.35);
-      var last = fx[fx.length - 1];
-      if (last && last.kind === "rocket") { last.fuseY = H * 0.5; last.tumble = false; }
-      if (last && last.kind === "truck") { last.stopX = W * 0.42; }
+      var qs = /[?&]fxstep=(\d+)/.exec(location.search);
+      var kinds = q[1].split(",");
+      for (var qi = 0; qi < kinds.length; qi++) {
+        var kk = kinds[qi];
+        var spx = kk === "rocket" ? W * 0.18 : kk === "sat" ? W * 0.85 : kk === "crack" ? W * 0.2 : W * 0.5;
+        var spy = kk === "bird" ? H * 0.12 : kk === "crack" ? H * 0.3 : H * 0.35;
+        spawnEffect(kk, spx, spy);
+        var last = fx[fx.length - 1];
+        if (!last) continue;
+        if (last.kind === "rocket") { last.fuseY = H * 0.5; last.tumble = false; }
+        if (last.kind === "truck") { last.stopX = W * 0.42; }
+        if (qs) { // normalize random speeds so fxstep lands on predictable moments
+          if (last.kind === "rocket") { last.vy = -2.6; }
+          if (last.kind === "truck") { last.dir = 1; last.x = -70; last.vx = 2.5; }
+          if (last.kind === "bird") { last.dropX = W * 0.85; last.vx = 2.8; }
+          if (last.kind === "sat") { last.vy = 2; last.vr = 0.06; last.burnY = H * 0.6; }
+        }
+      }
+      if (qs) {
+        cancelAnimationFrame(raf);
+        var steps = Math.min(3000, parseInt(qs[1], 10) || 0);
+        for (var st = 0; st < steps; st++) { stepFx(st * 16.7); stepParts(); }
+        draw(steps * 16.7); // render the frozen frame
+      }
     }
   }
 })();
