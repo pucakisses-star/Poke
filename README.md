@@ -1,10 +1,10 @@
-# 🚀 Elon Musk Fact Machine
+# 📉 Elon Musk Fact Machine — Critical Edition
 
-A tiny website that serves up a random Elon Musk fact every time you click (or press <kbd>space</kbd>).
+A tiny website that serves up a random, unflattering-but-documented Elon Musk fact every time you click (or press <kbd>space</kbd>).
 
 ## Features
 
-- **43 curated facts** spanning his early life, the Zip2/PayPal era, SpaceX, Tesla, his other ventures, pop culture and records — accurate as reported through early 2026
+- **41 documented low points** across categories — Broken Promises, Courts & Regulators, Workplace, Twitter / X, Tesla, SpaceX, Politics, Personal — drawn from court rulings, regulator findings and investigative reporting. Allegations are attributed to their sources and denials are noted; everything is accurate as reported through early 2026.
 - **No repeats** until you've seen every fact (shuffle-bag randomizer)
 - **Copy button** to grab the current fact, plus <kbd>space</kbd> / <kbd>N</kbd> keyboard shortcuts
 - Animated twinkling starfield with the occasional shooting star (disabled automatically for users who prefer reduced motion)
@@ -27,4 +27,4 @@ Works out of the box on GitHub Pages: **Settings → Pages → Deploy from a bra
 
 ---
 
-*A fan-made project. Not affiliated with Elon Musk, Tesla, SpaceX or X Corp.*
+*An unofficial project. Not affiliated with Elon Musk, Tesla, SpaceX or X Corp. (Obviously.)*

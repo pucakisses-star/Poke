@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Elon Musk Fact Machine</title>
-<meta name="description" content="One random, true-as-reported Elon Musk fact per click. 43 facts in the vault.">
+<title>Elon Musk Fact Machine — Critical Edition</title>
+<meta name="description" content="One random, documented, unflattering Elon Musk fact per click. 41 in the vault.">
 <meta name="theme-color" content="#050810">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%9A%80%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%93%89%3C/text%3E%3C/svg%3E">
 <style>
   :root {
     --bg: #050810;
@@ -15,8 +15,8 @@
     --faint: #6b7490;
     --line: rgba(255, 255, 255, 0.09);
     --card: rgba(13, 18, 34, 0.72);
-    --accent-1: #5aa7ff;
-    --accent-2: #a78bfa;
+    --accent-1: #ff6b5e;
+    --accent-2: #ffb054;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,9 +38,9 @@
     inset: 0;
     z-index: -2;
     background:
-      radial-gradient(640px 480px at 12% 8%, rgba(90, 167, 255, 0.16), transparent 65%),
-      radial-gradient(760px 560px at 88% 92%, rgba(167, 139, 250, 0.13), transparent 65%),
-      radial-gradient(500px 380px at 80% 12%, rgba(255, 120, 170, 0.05), transparent 60%);
+      radial-gradient(640px 480px at 12% 8%, rgba(255, 107, 94, 0.14), transparent 65%),
+      radial-gradient(760px 560px at 88% 92%, rgba(255, 176, 84, 0.11), transparent 65%),
+      radial-gradient(500px 380px at 80% 12%, rgba(167, 139, 250, 0.06), transparent 60%);
     pointer-events: none;
   }
 
@@ -67,7 +67,7 @@
 
   .logo {
     font-size: 2.2rem;
-    filter: drop-shadow(0 0 18px rgba(122, 162, 255, 0.55));
+    filter: drop-shadow(0 0 18px rgba(255, 120, 100, 0.5));
   }
 
   .kicker {
@@ -115,13 +115,14 @@
 
   .card-top {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
   }
 
   .chip {
-    --h: 215;
+    --h: 0;
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.14em;
@@ -142,7 +143,7 @@
 
   .fact-wrap {
     margin: 20px 0 22px;
-    min-height: 9.6em;
+    min-height: 10.4em;
     display: flex;
     align-items: center;
   }
@@ -187,12 +188,12 @@
 
   .btn.primary {
     color: #fff;
-    background: linear-gradient(120deg, #3d7dff, #8b5cf6);
-    box-shadow: 0 10px 26px rgba(80, 110, 255, 0.32);
+    background: linear-gradient(120deg, #ef4444, #f97316);
+    box-shadow: 0 10px 26px rgba(239, 80, 60, 0.32);
   }
 
-  .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(80, 110, 255, 0.42); }
-  .btn.primary:active { transform: translateY(0); box-shadow: 0 6px 16px rgba(80, 110, 255, 0.3); }
+  .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(239, 80, 60, 0.42); }
+  .btn.primary:active { transform: translateY(0); box-shadow: 0 6px 16px rgba(239, 80, 60, 0.3); }
 
   .btn.ghost {
     color: var(--muted);
@@ -232,7 +233,7 @@
   @media (max-width: 520px) {
     .page { padding-top: 36px; gap: 26px; }
     .card { padding: 20px 18px 18px; }
-    .fact-wrap { min-height: 12.5em; }
+    .fact-wrap { min-height: 14em; }
     .hint { display: none; }
   }
 
@@ -246,10 +247,10 @@
 
 <div class="page">
   <header class="site-head">
-    <div class="logo" aria-hidden="true">🚀</div>
+    <div class="logo" aria-hidden="true">📉</div>
     <p class="kicker">The</p>
     <h1>Elon Musk <span class="grad">Fact&nbsp;Machine</span></h1>
-    <p class="sub">One random, true-as-reported fact per click. 43 in the vault.</p>
+    <p class="sub">The critical edition: one documented, unflattering fact per click. 41 in the vault.</p>
   </header>
 
   <main>
@@ -275,9 +276,9 @@
   </main>
 
   <footer>
-    <p>43 facts drawn from public reporting, court filings and the Vance &amp; Isaacson biographies.<br>
-       Accurate as reported through early 2026 — details may have changed since.</p>
-    <p class="tiny">A fan-made project. Not affiliated with Elon Musk, Tesla, SpaceX or X&nbsp;Corp.</p>
+    <p>41 documented low points, drawn from court rulings, regulator findings and investigative reporting.<br>
+       Allegations are attributed and denials noted. Accurate as reported through early 2026 — details may have changed since.</p>
+    <p class="tiny">An unofficial project. Not affiliated with Elon Musk, Tesla, SpaceX or X&nbsp;Corp. (Obviously.)</p>
   </footer>
 </div>
 
@@ -286,76 +287,76 @@
   "use strict";
 
   /* ------------------------------------------------------------------ *
-   *  The facts                                                          *
+   *  The facts — critical edition                                       *
    * ------------------------------------------------------------------ */
   var FACTS = [
-    // Early life
-    { c: "Early Life", t: "Elon Musk was born on June 28, 1971, in Pretoria, South Africa. He went on to hold citizenship in three countries: South Africa, Canada and, from 2002, the United States." },
-    { c: "Early Life", t: "At age 12, Musk wrote a space-themed video game called Blastar and sold its source code to a computer magazine for about $500." },
-    { c: "Early Life", t: "As a boy he was such a compulsive reader that, according to biographer Ashlee Vance, he got through the entire Encyclopaedia Britannica — and at times two books a day." },
-    { c: "Early Life", t: "Musk was bullied severely at school in South Africa. One attack — a group of boys threw him down a concrete staircase and beat him — left him hospitalized." },
-    { c: "Early Life", t: "At 17 he moved to Canada alone, working odd jobs that included shoveling grain, cutting logs and cleaning a lumber mill's boiler room in a hazmat suit for $18 an hour." },
-    { c: "Early Life", t: "He started college at Queen's University in Ontario, then transferred to the University of Pennsylvania, where he earned two bachelor's degrees: one in physics, one in economics." },
-    { c: "Early Life", t: "In 1995 Musk moved to California for a Stanford PhD in materials science and applied physics. By his own account he lasted two days before quitting to start his first company." },
-    { c: "Early Life", t: "In 2000 he caught cerebral malaria on a trip to South Africa and nearly died. His conclusion, he later joked: “Vacations will kill you.”" },
+    // Broken promises (8)
+    { c: "Broken Promises", t: "In 2019 Musk promised a million Tesla robotaxis on the road by 2020. When a small robotaxi pilot finally launched in Austin in 2025 — five years late — each car still carried a human safety monitor." },
+    { c: "Broken Promises", t: "Nearly every year since 2014, Musk has predicted that fully self-driving Teslas were about a year away — including a coast-to-coast hands-free drive he promised for 2017 that never happened." },
+    { c: "Broken Promises", t: "Tesla unveiled the second-generation Roadster in 2017, collected deposits of up to $250,000 and promised production in 2020. More than eight years after the reveal, not one has been delivered." },
+    { c: "Broken Promises", t: "The Cybertruck's “shatterproof” armor glass shattered twice on stage at its 2019 unveiling. Promised at $39,900, the truck arrived two years late — at roughly double the price for the first trims actually sold." },
+    { c: "Broken Promises", t: "In its first year on sale, the Cybertruck was recalled seven times — including for an accelerator pedal that could stick and trim panels that could fly off on the highway." },
+    { c: "Broken Promises", t: "In 2017 Musk tweeted he had “verbal govt approval” for a New York–Washington hyperloop making the trip in 29 minutes. Officials in every affected city said it was news to them. No hyperloop exists anywhere." },
+    { c: "Broken Promises", t: "The Boring Company pitched high-speed tunnel systems for Chicago, Los Angeles and Baltimore — all quietly abandoned. What it actually delivered: a Las Vegas loop where human drivers ferry passengers in Teslas at about 30 mph." },
+    { c: "Broken Promises", t: "Testimony in a shareholder lawsuit revealed that the solar roof tiles Musk unveiled in 2016 were nonfunctional props. Tesla later hiked prices on customers who had already signed roof contracts, prompting a class action." },
 
-    // Zip2 & PayPal era
-    { c: "Zip2 & PayPal", t: "His first startup, Zip2 — an online city-guide company founded with his brother Kimbal in 1995 — sold to Compaq in 1999 for about $307 million. Musk, then 27, cleared $22 million." },
-    { c: "Zip2 & PayPal", t: "Musk spent part of his Zip2 windfall on a McLaren F1 supercar — then crashed it, uninsured, on Sand Hill Road with Peter Thiel in the passenger seat, right after saying “Watch this.”" },
-    { c: "Zip2 & PayPal", t: "In 1999 Musk founded X.com, one of the world's first online banks. It merged with a rival, became PayPal, and was bought by eBay in 2002 for $1.5 billion." },
-    { c: "Zip2 & PayPal", t: "Musk was ousted as PayPal's CEO in 2000 while away on his honeymoon. He remained the company's largest shareholder and netted roughly $180 million when eBay bought it." },
+    // Courts & regulators (8)
+    { c: "Courts & Regulators", t: "Musk's 2018 “funding secured” tweet about taking Tesla private brought securities-fraud charges from the SEC, which said the funding was not secured. He settled: $20 million from him, $20 million from Tesla, and the loss of his chairmanship." },
+    { c: "Courts & Regulators", t: "In 2024 a Delaware judge voided Musk's record $56 billion Tesla pay package — an “unfathomable sum” — ruling that a board beholden to him had run a deeply flawed approval process." },
+    { c: "Courts & Regulators", t: "When British diver Vernon Unsworth, who helped rescue twelve boys from a Thai cave in 2018, dismissed Musk's mini-submarine as a PR stunt, Musk baselessly branded him “pedo guy” to 22 million followers. A jury later found the insult didn't meet the legal bar for defamation." },
+    { c: "Courts & Regulators", t: "Musk signed a $44 billion deal for Twitter while waiving due diligence, then spent months trying to back out. Sued in Delaware and facing a trial he was widely expected to lose, he closed at the original price." },
+    { c: "Courts & Regulators", t: "U.S. labor officials found Tesla illegally fired a union activist and that Musk's tweet threatening workers' stock options broke labor law. Tesla remains the only major American automaker without a unionized U.S. plant." },
+    { c: "Courts & Regulators", t: "A federal jury found Tesla liable for the racist harassment Black elevator operator Owen Diaz endured at its Fremont plant, awarding $137 million (a retrial cut the sum). The EEOC and California's civil-rights agency have sued Tesla alleging widespread racial abuse there." },
+    { c: "Courts & Regulators", t: "U.S. safety regulators linked Autopilot to hundreds of crashes — at least 13 of them fatal — before Tesla recalled two million cars in 2023. In 2025 a Florida jury found Tesla partly liable in a fatal Autopilot crash and ordered it to pay about $240 million." },
+    { c: "Courts & Regulators", t: "During the 2024 election, Musk's PAC promised $1 million a day to “randomly selected” swing-state voters. In a Philadelphia courtroom, his own lawyers admitted the winners weren't random — they were hand-picked." },
 
-    // SpaceX
-    { c: "SpaceX", t: "Before founding SpaceX in 2002, Musk flew to Moscow to try to buy refurbished Russian rockets for a Mars greenhouse project. Deeming the price too high, he decided to build his own — and put in about $100 million of his own money." },
-    { c: "SpaceX", t: "SpaceX's first three launches all failed. The fourth, in September 2008 — with the company weeks from bankruptcy — made Falcon 1 the first privately developed liquid-fueled rocket ever to reach orbit." },
-    { c: "SpaceX", t: "During the 2008 financial crisis Musk split his last remaining cash between Tesla and SpaceX, and said he had to borrow money from friends just to pay rent." },
-    { c: "SpaceX", t: "In 2012, SpaceX's Dragon became the first commercial spacecraft in history to deliver cargo to the International Space Station." },
-    { c: "SpaceX", t: "In December 2015, SpaceX landed an orbital-class Falcon 9 booster upright for the first time ever — and in 2017 it re-flew a used booster, proving orbital rockets could be reused." },
-    { c: "SpaceX", t: "The first flight of Falcon Heavy in 2018 launched Musk's own midnight-cherry Tesla Roadster into orbit around the Sun, with a spacesuited mannequin named Starman at the wheel." },
-    { c: "SpaceX", t: "The Roadster now orbiting the Sun carries a towel and a copy of The Hitchhiker's Guide to the Galaxy in the glovebox — and a sign on the dash that reads “DON'T PANIC!”" },
-    { c: "SpaceX", t: "In 2020, SpaceX's Crew Dragon became the first privately built spacecraft ever to carry astronauts into orbit and to the International Space Station." },
-    { c: "SpaceX", t: "SpaceX's Starlink is the largest satellite constellation ever put in orbit — thousands of satellites beaming broadband back down to Earth." },
-    { c: "SpaceX", t: "SpaceX's Starship is the largest and most powerful rocket ever flown, with roughly twice the liftoff thrust of the Saturn V that carried astronauts to the Moon." },
-    { c: "SpaceX", t: "Musk has said he'd like to die on Mars — “just not on impact.”" },
-    { c: "SpaceX", t: "He has seriously floated warming Mars by detonating nuclear weapons over its icy poles. SpaceX even sold “NUKE MARS” T-shirts." },
+    // Workplace (5)
+    { c: "Workplace", t: "A Reuters investigation documented more than 600 previously unreported injuries at SpaceX — crushed limbs, amputations and one death — with injury rates far above the industry average. Workers blamed Musk's breakneck deadlines." },
+    { c: "Workplace", t: "Reuters revealed a federal probe into animal testing at Neuralink, where employees said rushed, pressure-cooker experiments caused needless suffering — about 1,500 animals killed since 2018. The company denied mistreatment." },
+    { c: "Workplace", t: "Weeks after buying Twitter, Musk emailed the remaining staff an ultimatum: commit to being “extremely hardcore” or take severance. He had already fired an engineer by tweet — “He's fired” — for publicly correcting him." },
+    { c: "Workplace", t: "Business Insider reported that SpaceX paid a flight attendant $250,000 to settle a claim that Musk exposed himself to her on a private jet. Musk denied the allegation and called the story a hit piece." },
+    { c: "Workplace", t: "The Washington Post reported that Musk worked in the U.S. without legal authorization while building Zip2 in the 1990s. His brother Kimbal once put it plainly on stage: “We were illegal immigrants.” Musk insists his status was legal." },
 
-    // Tesla
-    { c: "Tesla", t: "Musk didn't start Tesla: he led its $6.5 million Series A in 2004 and became chairman, then CEO in 2008. A 2009 legal settlement gave him the right to call himself a co-founder." },
-    { c: "Tesla", t: "Tesla's lineup spells a joke. Musk wanted Models S, E, X and Y — “SEXY” — but Ford owned the “Model E” trademark, so he flipped the E into a 3: S3XY." },
-    { c: "Tesla", t: "Musk takes no salary at Tesla. His 2018 package paid him only for hitting market-cap and performance milestones — and became the largest CEO compensation plan in corporate history." },
-    { c: "Tesla", t: "During the Model 3 “production hell” of 2018, Musk slept on the floor of the Fremont factory, saying he had no time to go home and shower." },
-    { c: "Tesla", t: "In October 2021, Tesla became the first carmaker in history to be valued at more than $1 trillion." },
-    { c: "Tesla", t: "Tesla bought SolarCity for $2.6 billion in 2016. The company was founded by Musk's cousins Peter and Lyndon Rive — from an idea Musk pitched to them on the way to Burning Man." },
-    { c: "Tesla", t: "In 2018 Musk tweeted he had “funding secured” to take Tesla private at $420 a share. The SEC sued him for securities fraud; he settled, paying $20 million and giving up Tesla's chairmanship." },
+    // Twitter / X (7)
+    { c: "Twitter / X", t: "In November 2022 Musk pledged that his “commitment to free speech” meant he would not ban the account tracking his private jet. Weeks later he banned it — and suspended journalists who reported on the episode." },
+    { c: "Twitter / X", t: "In 2023 Musk replied to a post accusing Jewish communities of pushing hatred: “You have said the actual truth.” As advertisers like Apple and Disney fled X, he told them from a conference stage: “Go f--- yourself.”" },
+    { c: "Twitter / X", t: "Researchers found hate speech surged on X after Musk's takeover. He responded by suing a small nonprofit that published such findings — and a federal judge threw the case out, writing that it sought to punish the group for its speech." },
+    { c: "Twitter / X", t: "Musk's first big product at X — $8 “verification” for anyone — unleashed a wave of impersonation. A fake Eli Lilly account tweeted that insulin was now free, the drugmaker's stock slid, and the program was paused within 48 hours." },
+    { c: "Twitter / X", t: "Days before the 2022 midterms, Musk tweeted a link to a fake-news site's baseless conspiracy theory about the hammer attack on Nancy Pelosi's husband, Paul. He deleted it without correction or apology." },
+    { c: "Twitter / X", t: "Musk paid $44 billion for Twitter. Fidelity later marked the company's value down by nearly 80%, and in 2025 he sold it to his own AI startup, xAI, at a valuation below what he had paid." },
+    { c: "Twitter / X", t: "In July 2025, Grok — the “truth-seeking” chatbot Musk built into X — praised Hitler, posted antisemitic rants and called itself “MechaHitler.” xAI apologized and blamed a code update." },
 
-    // Other ventures
-    { c: "Ventures", t: "Musk co-founded Neuralink in 2016 to build brain–computer interfaces. In January 2024 it implanted its first chip in a human, who learned to move a computer cursor by thought alone." },
-    { c: "Ventures", t: "The Boring Company started as a 2016 tweet: “Traffic is driving me nuts. Am going to build a tunnel boring machine and just start digging…” It now runs the Vegas Loop under Las Vegas." },
-    { c: "Ventures", t: "In 2018, The Boring Company sold 20,000 “Not-a-Flamethrower” flamethrowers at $500 apiece — $10 million of fire in a matter of days." },
-    { c: "Ventures", t: "Musk co-founded OpenAI as a nonprofit in 2015 and left its board in 2018. In 2023 he launched a rival lab, xAI, whose chatbot Grok takes its name from a Robert Heinlein sci-fi novel." },
-    { c: "Ventures", t: "In 2013 Musk published the Hyperloop white paper — passenger pods shooting through near-vacuum tubes at close to the speed of sound — and open-sourced the design for anyone to build." },
-    { c: "Ventures", t: "In October 2022 Musk bought Twitter for about $44 billion — $54.20 a share — and later renamed it X, reviving the brand of the online bank he founded in 1999." },
+    // Tesla (3)
+    { c: "Tesla", t: "Musk is routinely called Tesla's founder. He isn't: Martin Eberhard and Marc Tarpenning incorporated it in 2003, and Musk arrived months later as an investor. His right to the title “co-founder” comes from settling a lawsuit Eberhard filed against him." },
+    { c: "Tesla", t: "In March 2020 Musk tweeted that “the coronavirus panic is dumb” and predicted close to zero U.S. cases by the end of April. He called lockdowns “fascist” and reopened his Fremont factory in defiance of county health orders, daring officials to arrest him." },
+    { c: "Tesla", t: "After Musk's turn into right-wing politics, Tesla's European sales fell month after month in 2025 — and owners started buying bumper stickers reading “I bought this before Elon went crazy.”" },
 
-    // Pop culture
-    { c: "Pop Culture", t: "Robert Downey Jr. partly modeled his Tony Stark on Musk, who has a cameo in Iron Man 2 — parts of which were filmed inside SpaceX's rocket factory." },
-    { c: "Pop Culture", t: "Musk has played himself in The Simpsons, South Park, The Big Bang Theory and Rick and Morty (as “Elon Tusk”), and hosted Saturday Night Live in 2021." },
-    { c: "Pop Culture", t: "Time magazine named Musk its Person of the Year for 2021." },
+    // SpaceX (3)
+    { c: "SpaceX", t: "Starship's 2023 debut destroyed its own launch pad, flinging concrete chunks hundreds of meters and dusting a town six miles away; environmental groups sued. In 2025, back-to-back Starship failures rained debris over the Caribbean and forced airliners to divert." },
+    { c: "SpaceX", t: "Astronomers warn that Starlink — now more than half of all active satellites — streaks through telescope images and leaks radio interference, threatening ground-based astronomy from the world's darkest sites." },
+    { c: "SpaceX", t: "By his own account, Musk refused Ukraine's 2022 plea to activate Starlink over Crimea for a strike on Russia's fleet — leaving allies uneasy that battlefield communications depended on the judgment of one unelected billionaire." },
 
-    // Records & family
-    { c: "Records", t: "In January 2021 Musk became the world's richest person for the first time. In December 2024 he became the first person ever reported to pass a $400 billion net worth." },
-    { c: "Records", t: "In 2025 Musk spent several months in Washington as a special government employee, heading the “Department of Government Efficiency” — DOGE, an acronym borrowed from his favorite meme coin — before stepping down that May." },
-    { c: "Family", t: "Musk has fathered more than a dozen children, including twins and triplets. One son, born in 2020 with the musician Grimes, is named X Æ A-Xii — “X” for short." }
+    // Politics (4)
+    { c: "Politics", t: "Musk promised his DOGE cost-cutting drive would slash “at least $2 trillion” from the U.S. budget. The target shrank to $1 trillion, then $150 billion — and reporters found its “wall of receipts” padded with errors, including an $8 million contract logged as $8 billion." },
+    { c: "Politics", t: "Musk boasted of feeding USAID “into the wood chipper.” Researchers writing in The Lancet projected that the resulting aid cuts could contribute to millions of preventable deaths by 2030." },
+    { c: "Politics", t: "His 2025 email demanding that every federal employee list five weekly accomplishments — or be deemed to have resigned — caused such chaos that the FBI, the Pentagon and the State Department told their staff to ignore it." },
+    { c: "Politics", t: "During his 2025 falling-out with Donald Trump, Musk posted that Trump “is in the Epstein files.” He deleted the post within days and admitted his broadsides had “gone too far.”" },
+
+    // Personal (3)
+    { c: "Personal", t: "In 2022 Musk's daughter Vivian Jenna Wilson, then 18, petitioned to drop his surname, writing that she no longer wished to be related to him “in any way, shape or form.” She has since publicly rebuked his mockery of her trans identity." },
+    { c: "Personal", t: "Musk has been pushed out by his own colleagues twice: Zip2's investors installed a veteran executive as CEO over him, and PayPal's leadership ousted him as chief executive in a coup staged while he flew off on his honeymoon." },
+    { c: "Personal", t: "Flush with Zip2 money, Musk bought a $1 million McLaren F1 and skipped the insurance. Showing off for Peter Thiel — “Watch this” — he floored it on Sand Hill Road, spun out and wrecked it." }
   ];
 
   var HUES = {
-    "Early Life": 145,
-    "Zip2 & PayPal": 40,
-    "SpaceX": 215,
-    "Tesla": 0,
-    "Ventures": 265,
-    "Pop Culture": 320,
-    "Records": 185,
-    "Family": 25
+    "Broken Promises": 40,
+    "Courts & Regulators": 0,
+    "Workplace": 25,
+    "Twitter / X": 215,
+    "Tesla": 175,
+    "SpaceX": 265,
+    "Politics": 320,
+    "Personal": 145
   };
 
   /* ------------------------------------------------------------------ *
@@ -387,7 +388,7 @@
     var f = FACTS[i];
     current = i;
     chipEl.textContent = f.c;
-    chipEl.style.setProperty("--h", HUES[f.c] || 215);
+    chipEl.style.setProperty("--h", HUES[f.c] || 0);
     countEl.textContent = "#" + (i + 1) + " / " + FACTS.length;
     factEl.textContent = f.t;
     wrapEl.classList.remove("enter");
