@@ -1,534 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Elon Musk Fact Machine — Critical Edition</title>
-<meta name="description" content="One random, documented, unflattering Elon Musk fact per click. 41 in the vault.">
-<meta name="theme-color" content="#050810">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%93%89%3C/text%3E%3C/svg%3E">
-<style>
-  :root {
-    --bg: #050810;
-    --ink: #e8ecf8;
-    --muted: #97a0b8;
-    --faint: #6b7490;
-    --line: rgba(255, 255, 255, 0.09);
-    --card: rgba(13, 18, 34, 0.72);
-    --accent-1: #ff6b5e;
-    --accent-2: #ffb054;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { color-scheme: dark; }
-
-  body {
-    font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    min-height: 100svh;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* soft nebula glows behind everything */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    background:
-      radial-gradient(640px 480px at 12% 8%, rgba(255, 107, 94, 0.14), transparent 65%),
-      radial-gradient(760px 560px at 88% 92%, rgba(255, 176, 84, 0.11), transparent 65%),
-      radial-gradient(500px 380px at 80% 12%, rgba(167, 139, 250, 0.06), transparent 60%);
-    pointer-events: none;
-  }
-
-  #stars {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-  }
-
-  .page {
-    max-width: 720px;
-    min-height: 100svh;
-    margin: 0 auto;
-    padding: 48px 20px 32px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 32px;
-  }
-
-  /* ---------- header ---------- */
-  .site-head { text-align: center; }
-
-  .logo {
-    font-size: 2.2rem;
-    filter: drop-shadow(0 0 18px rgba(255, 120, 100, 0.5));
-  }
-
-  .kicker {
-    margin-top: 14px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--faint);
-  }
-
-  h1 {
-    margin-top: 6px;
-    font-size: clamp(1.9rem, 5.5vw, 3rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-  }
-
-  .grad {
-    background: linear-gradient(100deg, var(--accent-1), var(--accent-2));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .sub {
-    margin-top: 12px;
-    color: var(--muted);
-    font-size: 0.98rem;
-  }
-
-  /* ---------- card ---------- */
-  .card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    padding: 26px 28px 24px;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    box-shadow:
-      0 24px 70px rgba(0, 0, 0, 0.45),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  }
-
-  .card-top {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  .chip {
-    --h: 0;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 5px 11px;
-    border-radius: 999px;
-    color: hsl(var(--h) 90% 78%);
-    background: hsl(var(--h) 80% 60% / 0.13);
-    border: 1px solid hsl(var(--h) 75% 65% / 0.38);
-    white-space: nowrap;
-  }
-
-  .count {
-    font-size: 0.78rem;
-    font-variant-numeric: tabular-nums;
-    color: var(--faint);
-  }
-
-  .fact-wrap {
-    margin: 20px 0 22px;
-    min-height: 10.4em;
-    display: flex;
-    align-items: center;
-  }
-
-  .fact-wrap.enter { animation: rise 340ms cubic-bezier(0.2, 0.7, 0.3, 1); }
-
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: none; }
-  }
-
-  .fact {
-    font-size: clamp(1.12rem, 2.6vw, 1.42rem);
-    line-height: 1.58;
-    font-weight: 450;
-    text-wrap: pretty;
-  }
-
-  .actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .btn {
-    font: inherit;
-    font-weight: 650;
-    font-size: 0.95rem;
-    padding: 12px 20px;
-    border-radius: 12px;
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease,
-                border-color 120ms ease, color 120ms ease;
-  }
-
-  .btn:focus-visible,
-  a:focus-visible {
-    outline: 2px solid var(--accent-1);
-    outline-offset: 2px;
-  }
-
-  .btn.primary {
-    color: #fff;
-    background: linear-gradient(120deg, #ef4444, #f97316);
-    box-shadow: 0 10px 26px rgba(239, 80, 60, 0.32);
-  }
-
-  .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(239, 80, 60, 0.42); }
-  .btn.primary:active { transform: translateY(0); box-shadow: 0 6px 16px rgba(239, 80, 60, 0.3); }
-
-  .btn.ghost {
-    color: var(--muted);
-    background: rgba(255, 255, 255, 0.03);
-    border-color: var(--line);
-    min-width: 108px;
-  }
-
-  .btn.ghost:hover { color: var(--ink); border-color: rgba(255, 255, 255, 0.22); }
-
-  .hint {
-    margin-top: 16px;
-    font-size: 0.8rem;
-    color: var(--faint);
-  }
-
-  kbd {
-    font: 600 0.72rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    padding: 3px 7px 4px;
-    border-radius: 6px;
-    border: 1px solid var(--line);
-    border-bottom-width: 2px;
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--muted);
-  }
-
-  /* ---------- footer ---------- */
-  footer {
-    text-align: center;
-    color: var(--faint);
-    font-size: 0.8rem;
-    line-height: 1.6;
-  }
-
-  footer .tiny { margin-top: 6px; font-size: 0.72rem; opacity: 0.75; }
-
-  @media (max-width: 520px) {
-    .page { padding-top: 36px; gap: 26px; }
-    .card { padding: 20px 18px 18px; }
-    .fact-wrap { min-height: 14em; }
-    .hint { display: none; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    * { animation: none !important; transition: none !important; }
-  }
-</style>
+<title>PokéPicker — Find your favorite Pokémon</title>
+<meta name="description" content="Discover your favorite Pokémon by picking between two at a time until only one remains.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23f5f5f5'/%3E%3Cpath d='M4 50a46 46 0 0 1 92 0Z' fill='%23e3350d'/%3E%3Crect x='4' y='45' width='92' height='10' fill='%23222430'/%3E%3Ccircle cx='50' cy='50' r='15' fill='%23222430'/%3E%3Ccircle cx='50' cy='50' r='9' fill='%23fff'/%3E%3Ccircle cx='50' cy='50' r='4.5' fill='%23d8dbe6'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<canvas id="stars" aria-hidden="true"></canvas>
 
-<div class="page">
-  <header class="site-head">
-    <div class="logo" aria-hidden="true">📉</div>
-    <p class="kicker">The</p>
-    <h1>Elon Musk <span class="grad">Fact&nbsp;Machine</span></h1>
-    <p class="sub">The critical edition: one documented, unflattering fact per click. 41 in the vault.</p>
-  </header>
+<header class="site-header">
+  <button class="logo" id="btn-home" type="button" aria-label="PokéPicker home">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#f5f5f5"/><path d="M4 50a46 46 0 0 1 92 0Z" fill="#e3350d"/><rect x="4" y="45" width="92" height="10" fill="#222430"/><circle cx="50" cy="50" r="15" fill="#222430"/><circle cx="50" cy="50" r="9" fill="#fff"/><circle cx="50" cy="50" r="4.5" fill="#d8dbe6"/></svg>
+    <span>Poké<em>Picker</em></span>
+  </button>
+</header>
 
-  <main>
-    <section class="card" aria-label="Random Elon Musk fact">
-      <div class="card-top">
-        <span class="chip" id="chip">…</span>
-        <span class="count" id="count"></span>
+<main>
+
+  <!-- ============ Start screen ============ -->
+  <section class="screen" id="screen-start">
+    <h1 class="hero-title">Find your favorite <span>Pokémon</span></h1>
+    <p class="tagline">Two Pokémon face off — tap the one you like more. Winners advance, round after round, until a single champion remains: <strong>your favorite</strong>.</p>
+
+    <div class="panel">
+      <div class="panel-block">
+        <div class="panel-heading">
+          <h2>Generations</h2>
+          <div class="gen-actions">
+            <button class="btn-mini" id="gens-all" type="button">All</button>
+            <button class="btn-mini" id="gens-none" type="button">None</button>
+          </div>
+        </div>
+        <div class="gen-grid" id="gen-grid"></div>
       </div>
 
-      <blockquote class="fact-wrap" id="factWrap">
-        <p class="fact" id="fact" aria-live="polite">Loading a fact…</p>
-      </blockquote>
-
-      <div class="actions">
-        <button class="btn primary" id="next" type="button">
-          <span aria-hidden="true">🎲</span> Another fact
-        </button>
-        <button class="btn ghost" id="copy" type="button">Copy</button>
+      <div class="panel-block">
+        <h2>Bracket size</h2>
+        <div class="size-row" id="size-row"></div>
       </div>
 
-      <p class="hint">press <kbd>space</kbd> for a new fact</p>
-    </section>
-  </main>
+      <p class="pool-summary" id="pool-summary"></p>
+      <button class="btn-primary" id="btn-start" type="button">Start picking</button>
+    </div>
+  </section>
 
-  <footer>
-    <p>41 documented low points, drawn from court rulings, regulator findings and investigative reporting.<br>
-       Allegations are attributed and denials noted. Accurate as reported through early 2026 — details may have changed since.</p>
-    <p class="tiny">An unofficial project. Not affiliated with Elon Musk, Tesla, SpaceX or X&nbsp;Corp. (Obviously.)</p>
-  </footer>
-</div>
+  <!-- ============ Battle screen ============ -->
+  <section class="screen hidden" id="screen-battle">
+    <div class="battle-top">
+      <div class="round-label" id="round-label"></div>
+      <div class="match-label" id="match-label" aria-live="polite"></div>
+      <div class="progress" role="progressbar" aria-label="Bracket progress"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
 
-<script>
-(function () {
-  "use strict";
+    <div class="arena">
+      <button class="poke-card" id="card-a" type="button">
+        <span class="card-glow" aria-hidden="true"></span>
+        <img class="poke-img" alt="" draggable="false">
+        <span class="poke-id"></span>
+        <span class="poke-name"></span>
+        <span class="type-badges"></span>
+      </button>
 
-  /* ------------------------------------------------------------------ *
-   *  The facts — critical edition                                       *
-   * ------------------------------------------------------------------ */
-  var FACTS = [
-    // Broken promises (8)
-    { c: "Broken Promises", t: "In 2019 Musk promised a million Tesla robotaxis on the road by 2020. When a small robotaxi pilot finally launched in Austin in 2025 — five years late — each car still carried a human safety monitor." },
-    { c: "Broken Promises", t: "Nearly every year since 2014, Musk has predicted that fully self-driving Teslas were about a year away — including a coast-to-coast hands-free drive he promised for 2017 that never happened." },
-    { c: "Broken Promises", t: "Tesla unveiled the second-generation Roadster in 2017, collected deposits of up to $250,000 and promised production in 2020. More than eight years after the reveal, not one has been delivered." },
-    { c: "Broken Promises", t: "The Cybertruck's “shatterproof” armor glass shattered twice on stage at its 2019 unveiling. Promised at $39,900, the truck arrived two years late — at roughly double the price for the first trims actually sold." },
-    { c: "Broken Promises", t: "In its first year on sale, the Cybertruck was recalled seven times — including for an accelerator pedal that could stick and trim panels that could fly off on the highway." },
-    { c: "Broken Promises", t: "In 2017 Musk tweeted he had “verbal govt approval” for a New York–Washington hyperloop making the trip in 29 minutes. Officials in every affected city said it was news to them. No hyperloop exists anywhere." },
-    { c: "Broken Promises", t: "The Boring Company pitched high-speed tunnel systems for Chicago, Los Angeles and Baltimore — all quietly abandoned. What it actually delivered: a Las Vegas loop where human drivers ferry passengers in Teslas at about 30 mph." },
-    { c: "Broken Promises", t: "Testimony in a shareholder lawsuit revealed that the solar roof tiles Musk unveiled in 2016 were nonfunctional props. Tesla later hiked prices on customers who had already signed roof contracts, prompting a class action." },
+      <div class="vs" aria-hidden="true">VS</div>
 
-    // Courts & regulators (8)
-    { c: "Courts & Regulators", t: "Musk's 2018 “funding secured” tweet about taking Tesla private brought securities-fraud charges from the SEC, which said the funding was not secured. He settled: $20 million from him, $20 million from Tesla, and the loss of his chairmanship." },
-    { c: "Courts & Regulators", t: "In 2024 a Delaware judge voided Musk's record $56 billion Tesla pay package — an “unfathomable sum” — ruling that a board beholden to him had run a deeply flawed approval process." },
-    { c: "Courts & Regulators", t: "When British diver Vernon Unsworth, who helped rescue twelve boys from a Thai cave in 2018, dismissed Musk's mini-submarine as a PR stunt, Musk baselessly branded him “pedo guy” to 22 million followers. A jury later found the insult didn't meet the legal bar for defamation." },
-    { c: "Courts & Regulators", t: "Musk signed a $44 billion deal for Twitter while waiving due diligence, then spent months trying to back out. Sued in Delaware and facing a trial he was widely expected to lose, he closed at the original price." },
-    { c: "Courts & Regulators", t: "U.S. labor officials found Tesla illegally fired a union activist and that Musk's tweet threatening workers' stock options broke labor law. Tesla remains the only major American automaker without a unionized U.S. plant." },
-    { c: "Courts & Regulators", t: "A federal jury found Tesla liable for the racist harassment Black elevator operator Owen Diaz endured at its Fremont plant, awarding $137 million (a retrial cut the sum). The EEOC and California's civil-rights agency have sued Tesla alleging widespread racial abuse there." },
-    { c: "Courts & Regulators", t: "U.S. safety regulators linked Autopilot to hundreds of crashes — at least 13 of them fatal — before Tesla recalled two million cars in 2023. In 2025 a Florida jury found Tesla partly liable in a fatal Autopilot crash and ordered it to pay about $240 million." },
-    { c: "Courts & Regulators", t: "During the 2024 election, Musk's PAC promised $1 million a day to “randomly selected” swing-state voters. In a Philadelphia courtroom, his own lawyers admitted the winners weren't random — they were hand-picked." },
+      <button class="poke-card" id="card-b" type="button">
+        <span class="card-glow" aria-hidden="true"></span>
+        <img class="poke-img" alt="" draggable="false">
+        <span class="poke-id"></span>
+        <span class="poke-name"></span>
+        <span class="type-badges"></span>
+      </button>
+    </div>
 
-    // Workplace (5)
-    { c: "Workplace", t: "A Reuters investigation documented more than 600 previously unreported injuries at SpaceX — crushed limbs, amputations and one death — with injury rates far above the industry average. Workers blamed Musk's breakneck deadlines." },
-    { c: "Workplace", t: "Reuters revealed a federal probe into animal testing at Neuralink, where employees said rushed, pressure-cooker experiments caused needless suffering — about 1,500 animals killed since 2018. The company denied mistreatment." },
-    { c: "Workplace", t: "Weeks after buying Twitter, Musk emailed the remaining staff an ultimatum: commit to being “extremely hardcore” or take severance. He had already fired an engineer by tweet — “He's fired” — for publicly correcting him." },
-    { c: "Workplace", t: "Business Insider reported that SpaceX paid a flight attendant $250,000 to settle a claim that Musk exposed himself to her on a private jet. Musk denied the allegation and called the story a hit piece." },
-    { c: "Workplace", t: "The Washington Post reported that Musk worked in the U.S. without legal authorization while building Zip2 in the 1990s. His brother Kimbal once put it plainly on stage: “We were illegal immigrants.” Musk insists his status was legal." },
+    <div class="battle-actions">
+      <button class="btn-ghost" id="btn-undo" type="button">↩ Undo</button>
+      <button class="btn-ghost" id="btn-restart" type="button">Restart</button>
+    </div>
+    <p class="hint">Tip: pick with the <kbd>←</kbd> and <kbd>→</kbd> keys, undo with <kbd>Z</kbd></p>
+  </section>
 
-    // Twitter / X (7)
-    { c: "Twitter / X", t: "In November 2022 Musk pledged that his “commitment to free speech” meant he would not ban the account tracking his private jet. Weeks later he banned it — and suspended journalists who reported on the episode." },
-    { c: "Twitter / X", t: "In 2023 Musk replied to a post accusing Jewish communities of pushing hatred: “You have said the actual truth.” As advertisers like Apple and Disney fled X, he told them from a conference stage: “Go f--- yourself.”" },
-    { c: "Twitter / X", t: "Researchers found hate speech surged on X after Musk's takeover. He responded by suing a small nonprofit that published such findings — and a federal judge threw the case out, writing that it sought to punish the group for its speech." },
-    { c: "Twitter / X", t: "Musk's first big product at X — $8 “verification” for anyone — unleashed a wave of impersonation. A fake Eli Lilly account tweeted that insulin was now free, the drugmaker's stock slid, and the program was paused within 48 hours." },
-    { c: "Twitter / X", t: "Days before the 2022 midterms, Musk tweeted a link to a fake-news site's baseless conspiracy theory about the hammer attack on Nancy Pelosi's husband, Paul. He deleted it without correction or apology." },
-    { c: "Twitter / X", t: "Musk paid $44 billion for Twitter. Fidelity later marked the company's value down by nearly 80%, and in 2025 he sold it to his own AI startup, xAI, at a valuation below what he had paid." },
-    { c: "Twitter / X", t: "In July 2025, Grok — the “truth-seeking” chatbot Musk built into X — praised Hitler, posted antisemitic rants and called itself “MechaHitler.” xAI apologized and blamed a code update." },
+  <!-- ============ Champion screen ============ -->
+  <section class="screen hidden" id="screen-winner">
+    <p class="champ-kicker">Your favorite Pokémon is</p>
+    <div class="champ-hero" id="champ-hero">
+      <span class="champ-glow" aria-hidden="true"></span>
+      <img class="champ-img" id="champ-img" alt="" draggable="false">
+    </div>
+    <h1 class="champ-name" id="champ-name"></h1>
+    <div class="champ-meta" id="champ-meta"></div>
+    <p class="champ-stats" id="champ-stats"></p>
 
-    // Tesla (3)
-    { c: "Tesla", t: "Musk is routinely called Tesla's founder. He isn't: Martin Eberhard and Marc Tarpenning incorporated it in 2003, and Musk arrived months later as an investor. His right to the title “co-founder” comes from settling a lawsuit Eberhard filed against him." },
-    { c: "Tesla", t: "In March 2020 Musk tweeted that “the coronavirus panic is dumb” and predicted close to zero U.S. cases by the end of April. He called lockdowns “fascist” and reopened his Fremont factory in defiance of county health orders, daring officials to arrest him." },
-    { c: "Tesla", t: "After Musk's turn into right-wing politics, Tesla's European sales fell month after month in 2025 — and owners started buying bumper stickers reading “I bought this before Elon went crazy.”" },
+    <div class="podium" id="podium"></div>
 
-    // SpaceX (3)
-    { c: "SpaceX", t: "Starship's 2023 debut destroyed its own launch pad, flinging concrete chunks hundreds of meters and dusting a town six miles away; environmental groups sued. In 2025, back-to-back Starship failures rained debris over the Caribbean and forced airliners to divert." },
-    { c: "SpaceX", t: "Astronomers warn that Starlink — now more than half of all active satellites — streaks through telescope images and leaks radio interference, threatening ground-based astronomy from the world's darkest sites." },
-    { c: "SpaceX", t: "By his own account, Musk refused Ukraine's 2022 plea to activate Starlink over Crimea for a strike on Russia's fleet — leaving allies uneasy that battlefield communications depended on the judgment of one unelected billionaire." },
+    <div class="champ-actions">
+      <button class="btn-primary" id="btn-again" type="button">Run it back</button>
+      <button class="btn-ghost" id="btn-settings" type="button">Change settings</button>
+      <button class="btn-ghost" id="btn-undo-final" type="button">↩ Undo last pick</button>
+    </div>
+  </section>
 
-    // Politics (4)
-    { c: "Politics", t: "Musk promised his DOGE cost-cutting drive would slash “at least $2 trillion” from the U.S. budget. The target shrank to $1 trillion, then $150 billion — and reporters found its “wall of receipts” padded with errors, including an $8 million contract logged as $8 billion." },
-    { c: "Politics", t: "Musk boasted of feeding USAID “into the wood chipper.” Researchers writing in The Lancet projected that the resulting aid cuts could contribute to millions of preventable deaths by 2030." },
-    { c: "Politics", t: "His 2025 email demanding that every federal employee list five weekly accomplishments — or be deemed to have resigned — caused such chaos that the FBI, the Pentagon and the State Department told their staff to ignore it." },
-    { c: "Politics", t: "During his 2025 falling-out with Donald Trump, Musk posted that Trump “is in the Epstein files.” He deleted the post within days and admitted his broadsides had “gone too far.”" },
+</main>
 
-    // Personal (3)
-    { c: "Personal", t: "In 2022 Musk's daughter Vivian Jenna Wilson, then 18, petitioned to drop his surname, writing that she no longer wished to be related to him “in any way, shape or form.” She has since publicly rebuked his mockery of her trans identity." },
-    { c: "Personal", t: "Musk has been pushed out by his own colleagues twice: Zip2's investors installed a veteran executive as CEO over him, and PayPal's leadership ousted him as chief executive in a coup staged while he flew off on his honeymoon." },
-    { c: "Personal", t: "Flush with Zip2 money, Musk bought a $1 million McLaren F1 and skipped the insurance. Showing off for Peter Thiel — “Watch this” — he floored it on Sand Hill Road, spun out and wrecked it." }
-  ];
+<footer class="site-footer">
+  <p>Fan project · Artwork &amp; data from <a href="https://pokeapi.co" rel="noopener">PokéAPI</a> · Pokémon © Nintendo / Creatures Inc. / GAME FREAK inc.</p>
+</footer>
 
-  var HUES = {
-    "Broken Promises": 40,
-    "Courts & Regulators": 0,
-    "Workplace": 25,
-    "Twitter / X": 215,
-    "Tesla": 175,
-    "SpaceX": 265,
-    "Politics": 320,
-    "Personal": 145
-  };
+<canvas class="confetti hidden" id="confetti" aria-hidden="true"></canvas>
 
-  /* ------------------------------------------------------------------ *
-   *  Random fact plumbing (shuffle bag: no repeats until all are seen)  *
-   * ------------------------------------------------------------------ */
-  var factEl = document.getElementById("fact");
-  var wrapEl = document.getElementById("factWrap");
-  var chipEl = document.getElementById("chip");
-  var countEl = document.getElementById("count");
-  var nextBtn = document.getElementById("next");
-  var copyBtn = document.getElementById("copy");
-
-  var bag = [];
-  var current = -1;
-
-  function refillBag() {
-    bag = FACTS.map(function (_, i) { return i; });
-    for (var i = bag.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = bag[i]; bag[i] = bag[j]; bag[j] = tmp;
-    }
-    // avoid showing the same fact twice in a row across refills
-    if (bag.length > 1 && bag[bag.length - 1] === current) {
-      var t2 = bag[0]; bag[0] = bag[bag.length - 1]; bag[bag.length - 1] = t2;
-    }
-  }
-
-  function showFact(i) {
-    var f = FACTS[i];
-    current = i;
-    chipEl.textContent = f.c;
-    chipEl.style.setProperty("--h", HUES[f.c] || 0);
-    countEl.textContent = "#" + (i + 1) + " / " + FACTS.length;
-    factEl.textContent = f.t;
-    wrapEl.classList.remove("enter");
-    void wrapEl.offsetWidth; // restart the entrance animation
-    wrapEl.classList.add("enter");
-  }
-
-  function newFact() {
-    if (bag.length === 0) refillBag();
-    showFact(bag.pop());
-  }
-
-  nextBtn.addEventListener("click", newFact);
-
-  copyBtn.addEventListener("click", function () {
-    var text = current >= 0 ? FACTS[current].t : "";
-    function done(ok) {
-      copyBtn.textContent = ok ? "Copied ✓" : "Copy failed";
-      clearTimeout(copyBtn._t);
-      copyBtn._t = setTimeout(function () { copyBtn.textContent = "Copy"; }, 1400);
-    }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(fallbackCopy(text)); });
-    } else {
-      done(fallbackCopy(text));
-    }
-  });
-
-  function fallbackCopy(text) {
-    var ta = document.createElement("textarea");
-    ta.value = text;
-    ta.style.position = "fixed";
-    ta.style.opacity = "0";
-    document.body.appendChild(ta);
-    ta.select();
-    var ok = false;
-    try { ok = document.execCommand("copy"); } catch (e) { /* unsupported */ }
-    ta.remove();
-    return ok;
-  }
-
-  document.addEventListener("keydown", function (e) {
-    if (e.repeat) return;
-    var isSpace = e.code === "Space";
-    var isN = e.key === "n" || e.key === "N";
-    if (!isSpace && !isN) return;
-    var tag = document.activeElement && document.activeElement.tagName;
-    if (isSpace && tag === "BUTTON") return; // let the focused button handle it
-    e.preventDefault();
-    newFact();
-  });
-
-  newFact();
-
-  /* ------------------------------------------------------------------ *
-   *  Starfield                                                          *
-   * ------------------------------------------------------------------ */
-  var canvas = document.getElementById("stars");
-  var ctx = canvas.getContext("2d");
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var stars = [], meteors = [], W = 0, H = 0, raf = 0;
-
-  function resize() {
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = window.innerWidth;
-    H = window.innerHeight;
-    canvas.width = W * dpr;
-    canvas.height = H * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    var n = Math.min(240, Math.round(W * H / 6500));
-    stars = [];
-    for (var i = 0; i < n; i++) {
-      stars.push({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        r: Math.random() * 1.25 + 0.3,
-        a: Math.random() * 0.5 + 0.22,
-        tw: Math.random() * Math.PI * 2,
-        sp: Math.random() * 1.1 + 0.35
-      });
-    }
-    if (reduceMotion) draw(0);
-  }
-
-  function draw(t) {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = "#cdd8ff";
-    for (var i = 0; i < stars.length; i++) {
-      var s = stars[i];
-      var a = reduceMotion ? s.a : s.a * (0.6 + 0.4 * Math.sin(s.tw + t * 0.001 * s.sp));
-      ctx.globalAlpha = Math.max(a, 0.05);
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, 6.2832);
-      ctx.fill();
-    }
-    for (var m = meteors.length - 1; m >= 0; m--) {
-      var mt = meteors[m];
-      mt.x += mt.vx; mt.y += mt.vy; mt.life--;
-      if (mt.life <= 0 || mt.y > H + 40) { meteors.splice(m, 1); continue; }
-      var g = ctx.createLinearGradient(mt.x, mt.y, mt.x - mt.vx * 11, mt.y - mt.vy * 11);
-      g.addColorStop(0, "rgba(210,224,255,0.9)");
-      g.addColorStop(1, "rgba(210,224,255,0)");
-      ctx.globalAlpha = Math.min(1, mt.life / 24);
-      ctx.strokeStyle = g;
-      ctx.lineWidth = 1.6;
-      ctx.lineCap = "round";
-      ctx.beginPath();
-      ctx.moveTo(mt.x, mt.y);
-      ctx.lineTo(mt.x - mt.vx * 11, mt.y - mt.vy * 11);
-      ctx.stroke();
-    }
-    ctx.globalAlpha = 1;
-  }
-
-  function loop(t) {
-    draw(t);
-    raf = requestAnimationFrame(loop);
-  }
-
-  resize();
-  window.addEventListener("resize", resize);
-
-  if (!reduceMotion) {
-    raf = requestAnimationFrame(loop);
-    setInterval(function () {
-      if (document.hidden || meteors.length > 1 || Math.random() < 0.55) return;
-      meteors.push({
-        x: W * 0.1 + Math.random() * W * 0.8,
-        y: Math.random() * H * 0.3,
-        vx: (Math.random() < 0.5 ? -1 : 1) * (4 + Math.random() * 3),
-        vy: 2 + Math.random() * 2,
-        life: 55
-      });
-    }, 4000);
-    document.addEventListener("visibilitychange", function () {
-      cancelAnimationFrame(raf);
-      if (!document.hidden) raf = requestAnimationFrame(loop);
-    });
-  }
-})();
-</script>
+<script src="data.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
