@@ -1,31 +1,70 @@
-# 📉 Elon Musk Fact Machine — Critical Edition
+# PokéPicker — Find your favorite Pokémon
 
-A tiny website that serves up a random, unflattering-but-documented Elon Musk fact every time you click (or press <kbd>space</kbd>).
-
-## Features
-
-- **301 documented low points** across 13 categories — Broken Promises, Autopilot & Safety, Courts & Regulators, Workplace, Twitter / X, Tesla, SpaceX, Boring & Hyperloop, Neuralink & xAI, Politics & DOGE, Money, Quotes, Personal — drawn from court rulings, regulator findings, official filings and investigative reporting. Allegations are attributed to their sources and denials are noted; everything is accurate as reported through early 2026.
-- **No repeats** until you've seen every fact (shuffle-bag randomizer)
-- **Copy button** to grab the current fact, plus <kbd>space</kbd> / <kbd>N</kbd> keyboard shortcuts
-- Animated twinkling starfield with the occasional shooting star (disabled automatically for users who prefer reduced motion)
-- **Background chaos effects**, purely cosmetic and fully canvas-drawn: a SpaceX-style rocket that launches, wobbles and undergoes rapid unscheduled disassembly; a Cybertruck that drives in, loses a wheel and catches fire ("recall issued"); a little blue bird that plummets mid-flight ("acquired for $44B"); a Starlink satellite burning up on reentry; and spontaneous "shatterproof" glass cracks. They fire at random every so often, occasionally when you draw a new fact — and on demand when you **click anywhere in the background**. All of it is skipped for reduced-motion users, and there's a `?fx=rocket|truck|bird|sat|crack` URL parameter for triggering a specific effect.
-- Two plain files — `index.html` + `facts.js` — no build step, no dependencies, no network requests. All on-page counts are computed from the fact array, so adding facts to `facts.js` updates the site automatically.
+A zero-dependency static website that helps you discover your favorite Pokémon.
+Two Pokémon face off; click the one you like more. Winners advance round after
+round — bracket style — until a single champion remains: your favorite.
 
 ## Run it
 
-Open `index.html` in any browser (keep `facts.js` next to it). That's it.
+No build step, no server-side code. Either:
 
-Or serve it locally:
+- open `index.html` directly in a browser, or
+- serve the folder: `python3 -m http.server 8000` and visit
+  <http://localhost:8000>, or
+- host it on any static host (GitHub Pages works out of the box).
 
-```bash
-python3 -m http.server 8000
-# then visit http://localhost:8000
+An internet connection is needed at runtime only for the Pokémon artwork,
+which loads from the [PokéAPI sprites CDN](https://github.com/PokeAPI/sprites).
+
+## Features
+
+- **All 1025 Pokémon** (Generations I–IX), with names and types baked into
+  `data.js` — no API calls for data at runtime.
+- **Pick your pool**: filter by generation and choose a bracket size
+  (8 / 16 / 32 / 64 / 128 / everyone). Non-power-of-two pools are handled
+  with byes.
+- **Undo** any pick (button, or `Z` / `Backspace`), keyboard picking with
+  `←` / `→`, and a progress bar showing picks remaining.
+- **Champion screen** with confetti, the runner-up, and the semifinalists.
+- Type-colored cards, official artwork with sprite fallback, responsive
+  layout, and `prefers-reduced-motion` support.
+
+## Files
+
+| File | Purpose |
+| --- | --- |
+| `index.html` | Page structure (start, battle, and champion screens) |
+| `styles.css` | All styling |
+| `app.js` | Bracket logic, rendering, undo history, confetti |
+| `data.js` | Generated roster: `{id, name, types}` for all 1025 species |
+| `tools/gen_data.py` | Regenerates `data.js` from PokéAPI |
+
+## Regenerating the roster
+
+When a new generation drops:
+
+```sh
+python3 tools/gen_data.py
 ```
 
-## Deploy
+(Requires internet access; the script fetches the species list and the 18
+type rosters from PokéAPI, then rewrites `data.js`.)
 
-Works out of the box on GitHub Pages: **Settings → Pages → Deploy from a branch**, pick this branch and `/ (root)`.
+## Credits
 
----
+Pokémon names, types, and artwork courtesy of [PokéAPI](https://pokeapi.co).
+This is a fan project; Pokémon is © Nintendo / Creatures Inc. / GAME FREAK inc.
 
-*An unofficial project. Not affiliated with Elon Musk, Tesla, SpaceX or X Corp. (Obviously.)*
+## Also in this repo: the Elon Musk Fact Machine
+
+An unrelated second mini-site lives in [`fact-machine/`](fact-machine/): a
+random-fact page serving **301 documented, unflattering Elon Musk facts**
+(court rulings, regulator findings and attributed investigative reporting),
+with interactive canvas background effects — exploding rockets, a combusting
+Cybertruck, a plummeting $44B bird, deorbiting satellites and "shatterproof"
+glass cracks (click the page background to trigger one; add
+`?fx=rocket|truck|bird|sat|crack` to force a specific effect).
+
+Open `fact-machine/index.html` directly, or visit `/fact-machine/` when the
+repo is hosted as a static site. Facts live in `fact-machine/facts.js`; all
+on-page counts update automatically when facts are added.

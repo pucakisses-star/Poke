@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elon Musk Fact Machine — Critical Edition</title>
+<meta name="description" content="One random, documented, unflattering Elon Musk fact per click. Hundreds in the vault.">
+<meta name="theme-color" content="#050810">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%93%89%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #050810;
+    --ink: #e8ecf8;
+    --muted: #97a0b8;
+    --faint: #6b7490;
+    --line: rgba(255, 255, 255, 0.09);
+    --card: rgba(13, 18, 34, 0.72);
+    --accent-1: #ff6b5e;
+    --accent-2: #ffb054;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { color-scheme: dark; }
+
+  body {
+    font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100svh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(640px 480px at 12% 8%, rgba(255, 107, 94, 0.14), transparent 65%),
+      radial-gradient(760px 560px at 88% 92%, rgba(255, 176, 84, 0.11), transparent 65%),
+      radial-gradient(500px 380px at 80% 12%, rgba(167, 139, 250, 0.06), transparent 60%);
+    pointer-events: none;
+  }
+
+  #stars {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .page {
+    max-width: 720px;
+    min-height: 100svh;
+    margin: 0 auto;
+    padding: 48px 20px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .site-head { text-align: center; }
+
+  .logo {
+    font-size: 2.2rem;
+    filter: drop-shadow(0 0 18px rgba(255, 120, 100, 0.5));
+  }
+
+  .kicker {
+    margin-top: 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  h1 {
+    margin-top: 6px;
+    font-size: clamp(1.9rem, 5.5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .grad {
+    background: linear-gradient(100deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .sub {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 0.98rem;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 26px 28px 24px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:
+      0 24px 70px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .card-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .chip {
+    --h: 0;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 999px;
+    color: hsl(var(--h) 90% 78%);
+    background: hsl(var(--h) 80% 60% / 0.13);
+    border: 1px solid hsl(var(--h) 75% 65% / 0.38);
+    white-space: nowrap;
+  }
+
+  .count {
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--faint);
+  }
+
+  .fact-wrap {
+    margin: 20px 0 22px;
+    min-height: 10.4em;
+    display: flex;
+    align-items: center;
+  }
+
+  .fact-wrap.enter { animation: rise 340ms cubic-bezier(0.2, 0.7, 0.3, 1); }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .fact {
+    font-size: clamp(1.12rem, 2.6vw, 1.42rem);
+    line-height: 1.58;
+    font-weight: 450;
+    text-wrap: pretty;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .btn {
+    font: inherit;
+    font-weight: 650;
+    font-size: 0.95rem;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease,
+                border-color 120ms ease, color 120ms ease;
+  }
+
+  .btn:focus-visible,
+  a:focus-visible {
+    outline: 2px solid var(--accent-1);
+    outline-offset: 2px;
+  }
+
+  .btn.primary {
+    color: #fff;
+    background: linear-gradient(120deg, #ef4444, #f97316);
+    box-shadow: 0 10px 26px rgba(239, 80, 60, 0.32);
+  }
+
+  .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(239, 80, 60, 0.42); }
+  .btn.primary:active { transform: translateY(0); box-shadow: 0 6px 16px rgba(239, 80, 60, 0.3); }
+
+  .btn.ghost {
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--line);
+    min-width: 108px;
+  }
+
+  .btn.ghost:hover { color: var(--ink); border-color: rgba(255, 255, 255, 0.22); }
+
+  .hint {
+    margin-top: 16px;
+    font-size: 0.8rem;
+    color: var(--faint);
+  }
+
+  kbd {
+    font: 600 0.72rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    padding: 3px 7px 4px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    border-bottom-width: 2px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--muted);
+  }
+
+  footer {
+    text-align: center;
+    color: var(--faint);
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+
+  footer .tiny { margin-top: 6px; font-size: 0.72rem; opacity: 0.75; }
+
+  @media (max-width: 520px) {
+    .page { padding-top: 36px; gap: 26px; }
+    .card { padding: 20px 18px 18px; }
+    .fact-wrap { min-height: 14em; }
+    .hint { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<canvas id="stars" aria-hidden="true"></canvas>
+
+<div class="page">
+  <header class="site-head">
+    <div class="logo" aria-hidden="true">📉</div>
+    <p class="kicker">The</p>
+    <h1>Elon Musk <span class="grad">Fact&nbsp;Machine</span></h1>
+    <p class="sub">The critical edition: one documented, unflattering fact per click.
+       <span id="vaultA">Hundreds</span> in the vault.</p>
+  </header>
+
+  <main>
+    <section class="card" aria-label="Random Elon Musk fact">
+      <div class="card-top">
+        <span class="chip" id="chip">…</span>
+        <span class="count" id="count"></span>
+      </div>
+
+      <blockquote class="fact-wrap" id="factWrap">
+        <p class="fact" id="fact" aria-live="polite">Loading a fact…</p>
+      </blockquote>
+
+      <div class="actions">
+        <button class="btn primary" id="next" type="button">
+          <span aria-hidden="true">🎲</span> Another fact
+        </button>
+        <button class="btn ghost" id="copy" type="button">Copy</button>
+      </div>
+
+      <p class="hint">press <kbd>space</kbd> for a new fact · click the background for chaos</p>
+    </section>
+  </main>
+
+  <footer>
+    <p><span id="vaultB">These are</span> documented low points, drawn from court rulings, regulator findings,
+       official filings and investigative reporting.<br>
+       Allegations are attributed and denials noted. Accurate as reported through early 2026 — details may have changed since.</p>
+    <p class="tiny">An unofficial project. Not affiliated with Elon Musk, Tesla, SpaceX or X&nbsp;Corp. (Obviously.)</p>
+  </footer>
+</div>
+
+<script src="facts.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var FACTS = window.FACTS || [];
+  var HUES = window.FACT_HUES || {};
+
+  // keep the on-page copy in sync with the real vault size
+  document.getElementById("vaultA").textContent = String(FACTS.length);
+  document.getElementById("vaultB").textContent = String(FACTS.length);
+
+  /* ------------------------------------------------------------------ *
+   *  Random fact plumbing (shuffle bag: no repeats until all are seen)  *
+   * ------------------------------------------------------------------ */
+  var factEl = document.getElementById("fact");
+  var wrapEl = document.getElementById("factWrap");
+  var chipEl = document.getElementById("chip");
+  var countEl = document.getElementById("count");
+  var nextBtn = document.getElementById("next");
+  var copyBtn = document.getElementById("copy");
+
+  var bag = [];
+  var current = -1;
+
+  function refillBag() {
+    bag = FACTS.map(function (_, i) { return i; });
+    for (var i = bag.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = bag[i]; bag[i] = bag[j]; bag[j] = tmp;
+    }
+    // avoid showing the same fact twice in a row across refills
+    if (bag.length > 1 && bag[bag.length - 1] === current) {
+      var t2 = bag[0]; bag[0] = bag[bag.length - 1]; bag[bag.length - 1] = t2;
+    }
+  }
+
+  function showFact(i) {
+    var f = FACTS[i];
+    current = i;
+    chipEl.textContent = f.c;
+    chipEl.style.setProperty("--h", HUES[f.c] || 0);
+    countEl.textContent = "#" + (i + 1) + " / " + FACTS.length;
+    factEl.textContent = f.t;
+    wrapEl.classList.remove("enter");
+    void wrapEl.offsetWidth; // restart the entrance animation
+    wrapEl.classList.add("enter");
+  }
+
+  function newFact() {
+    if (FACTS.length === 0) return;
+    if (bag.length === 0) refillBag();
+    showFact(bag.pop());
+    if (Math.random() < 0.18) spawnEffect(); // occasional background chaos
+  }
+
+  nextBtn.addEventListener("click", newFact);
+
+  copyBtn.addEventListener("click", function () {
+    var text = current >= 0 ? FACTS[current].t : "";
+    function done(ok) {
+      copyBtn.textContent = ok ? "Copied ✓" : "Copy failed";
+      clearTimeout(copyBtn._t);
+      copyBtn._t = setTimeout(function () { copyBtn.textContent = "Copy"; }, 1400);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(fallbackCopy(text)); });
+    } else {
+      done(fallbackCopy(text));
+    }
+  });
+
+  function fallbackCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { /* unsupported */ }
+    ta.remove();
+    return ok;
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if (e.repeat) return;
+    var isSpace = e.code === "Space";
+    var isN = e.key === "n" || e.key === "N";
+    if (!isSpace && !isN) return;
+    var tag = document.activeElement && document.activeElement.tagName;
+    if (isSpace && tag === "BUTTON") return; // let the focused button handle it
+    e.preventDefault();
+    newFact();
+  });
+
+  newFact();
+
+  /* ------------------------------------------------------------------ *
+   *  Starfield + background chaos effects                               *
+   *  (a rocket that RUDs, a Cybertruck that combusts, a $44B bird,      *
+   *   a deorbiting satellite, "shatterproof" glass — purely cosmetic)   *
+   * ------------------------------------------------------------------ */
+  var canvas = document.getElementById("stars");
+  var ctx = canvas.getContext("2d");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var stars = [], meteors = [], W = 0, H = 0, raf = 0;
+  var fx = [];    // effect entities (rockets, trucks, birds, sats, cracks, captions)
+  var parts = []; // particles (sparks, smoke, flame, debris, feathers, wheels)
+
+  function resize() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.min(240, Math.round(W * H / 6500));
+    stars = [];
+    for (var i = 0; i < n; i++) {
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 1.25 + 0.3,
+        a: Math.random() * 0.5 + 0.22,
+        tw: Math.random() * Math.PI * 2,
+        sp: Math.random() * 1.1 + 0.35
+      });
+    }
+    if (reduceMotion) draw(0);
+  }
+
+  /* ---------- effect helpers ---------- */
+
+  function boom(x, y, power) {
+    var i, a, sp;
+    parts.push({ type: "flash", x: x, y: y, vx: 0, vy: 0, size: 26 * power, life: 10, max: 10 });
+    for (i = 0; i < 46 * power; i++) {
+      a = Math.random() * 6.2832;
+      sp = (1 + Math.random() * 3.4) * power;
+      parts.push({ type: "spark", x: x, y: y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 0.6,
+                   size: 1 + Math.random() * 2, life: 40 + Math.random() * 30, max: 70 });
+    }
+    for (i = 0; i < 10 * power; i++) {
+      parts.push({ type: "debris", x: x, y: y, vx: (Math.random() - 0.5) * 4, vy: -Math.random() * 3,
+                   size: 2 + Math.random() * 2.5, rot: Math.random() * 6.2832,
+                   vr: (Math.random() - 0.5) * 0.3, life: 90, max: 90 });
+    }
+    for (i = 0; i < 14 * power; i++) {
+      parts.push({ type: "smoke", x: x + (Math.random() - 0.5) * 10, y: y + (Math.random() - 0.5) * 10,
+                   vx: (Math.random() - 0.5) * 0.6, vy: -0.3 - Math.random() * 0.5,
+                   size: 6 + Math.random() * 10, life: 90 + Math.random() * 60, max: 150 });
+    }
+  }
+
+  function caption(text, x, y) {
+    fx.push({ kind: "cap", text: text, x: Math.max(80, Math.min(W - 80, x)),
+              y: Math.max(24, y), life: 170, max: 170 });
+  }
+
+  function spawnEffect(kind, px, py) {
+    if (reduceMotion || !W || !H) return;
+    var majors = 0, i;
+    for (i = 0; i < fx.length; i++) if (fx[i].kind !== "cap") majors++;
+    if (majors >= 3) return;
+    if (!kind) {
+      var r = Math.random();
+      kind = r < 0.3 ? "rocket" : r < 0.58 ? "truck" : r < 0.74 ? "bird" : r < 0.9 ? "sat" : "crack";
+    }
+    var x = typeof px === "number" ? px : Math.random() * W;
+    var y = typeof py === "number" ? py : H * (0.15 + Math.random() * 0.4);
+
+    if (kind === "rocket") {
+      fx.push({ kind: "rocket", x: Math.max(30, Math.min(W - 30, x)), y: H + 24,
+                vy: -(2.1 + Math.random() * 1.1), seed: Math.random() * 10, tilt: 0,
+                state: "up", fuseY: H * (0.28 + Math.random() * 0.34),
+                tumble: Math.random() < 0.4, timer: 0, vr: 0 });
+    } else if (kind === "truck") {
+      var dir = Math.random() < 0.5 ? 1 : -1;
+      fx.push({ kind: "truck", dir: dir, x: dir === 1 ? -70 : W + 70, y: H - 26,
+                vx: dir * (2 + Math.random()), state: "drive",
+                stopX: W * (0.22 + Math.random() * 0.56), burn: 0,
+                wheelGone: false, alpha: 1, seed: Math.random() * 10 });
+    } else if (kind === "bird") {
+      fx.push({ kind: "bird", x: -24, y: Math.max(30, Math.min(H * 0.55, y)),
+                vx: 2.4 + Math.random(), vy: 0, state: "fly",
+                dropX: W * (0.3 + Math.random() * 0.4), rot: 0, seed: Math.random() * 10 });
+    } else if (kind === "sat") {
+      fx.push({ kind: "sat", x: Math.max(40, Math.min(W - 40, x)), y: -24,
+                vx: (Math.random() - 0.5) * 1.4, vy: 1.6 + Math.random() * 0.8,
+                rot: Math.random() * 6.2832, vr: 0.05 + Math.random() * 0.08,
+                burnY: H * (0.55 + Math.random() * 0.25) });
+    } else if (kind === "crack") {
+      var cx = Math.max(40, Math.min(W - 40, x));
+      var cy = typeof py === "number" ? py : H * (0.2 + Math.random() * 0.5);
+      var lines = [], n = 8 + Math.floor(Math.random() * 4), k, s, ang, px2, py2, pts, segs, stepLen;
+      for (k = 0; k < n; k++) {
+        ang = (k / n) * 6.2832 + Math.random() * 0.5;
+        px2 = cx; py2 = cy;
+        pts = [[cx, cy]];
+        segs = 3 + Math.floor(Math.random() * 3);
+        stepLen = (30 + Math.random() * 70) / segs;
+        for (s = 0; s < segs; s++) {
+          ang += (Math.random() - 0.5) * 0.5;
+          px2 += Math.cos(ang) * stepLen;
+          py2 += Math.sin(ang) * stepLen;
+          pts.push([px2, py2]);
+        }
+        lines.push(pts);
+      }
+      fx.push({ kind: "crack", x: cx, y: cy, lines: lines, life: 160, max: 160 });
+      caption("“shatterproof”", cx, cy - 46);
+    }
+  }
+  window.__spawnEffect = spawnEffect; // debug/test hook
+
+  /* ---------- effect stepping ---------- */
+
+  function stepFx(t) {
+    for (var i = fx.length - 1; i >= 0; i--) {
+      var e = fx[i], dead = false;
+
+      if (e.kind === "rocket") {
+        if (e.state === "up") {
+          e.y += e.vy;
+          e.tilt = Math.sin(t * 0.004 + e.seed) * Math.min(0.5, (H + 24 - e.y) / H * 0.7);
+          parts.push({ type: "flame", x: e.x - Math.sin(e.tilt) * 14, y: e.y + Math.cos(e.tilt) * 14,
+                       vx: (Math.random() - 0.5) * 0.4, vy: 1.6 + Math.random(),
+                       size: 2.5 + Math.random() * 2, life: 14, max: 14 });
+          if (Math.random() < 0.4) {
+            parts.push({ type: "smoke", x: e.x - Math.sin(e.tilt) * 16, y: e.y + Math.cos(e.tilt) * 16,
+                         vx: (Math.random() - 0.5) * 0.5, vy: 0.6, size: 3 + Math.random() * 3,
+                         life: 50, max: 60 });
+          }
+          if (e.y <= e.fuseY) {
+            if (e.tumble) {
+              e.state = "tumble";
+              e.timer = 50 + Math.random() * 30;
+              e.vr = (Math.random() < 0.5 ? -1 : 1) * (0.06 + Math.random() * 0.05);
+            } else {
+              boom(e.x, e.y, 1.4);
+              caption("rapid unscheduled disassembly", e.x, e.y - 30);
+              dead = true;
+            }
+          }
+        } else { // tumble
+          e.tilt += e.vr;
+          e.vy = Math.min(2.2, e.vy + 0.09);
+          e.y += e.vy;
+          e.x += Math.sin(e.tilt) * 1.2;
+          if (Math.random() < 0.5) {
+            parts.push({ type: "flame", x: e.x, y: e.y, vx: (Math.random() - 0.5), vy: (Math.random() - 0.5),
+                         size: 2 + Math.random() * 2, life: 12, max: 14 });
+          }
+          e.timer--;
+          if (e.timer <= 0 || e.y > H - 30) {
+            boom(e.x, e.y, 1.4);
+            caption("rapid unscheduled disassembly", e.x, e.y - 30);
+            dead = true;
+          }
+        }
+
+      } else if (e.kind === "truck") {
+        if (e.state === "drive") {
+          e.x += e.vx;
+          e.y = H - 26 + Math.sin(e.x * 0.08) * 0.8;
+          var passed = e.dir === 1 ? e.x >= e.stopX : e.x <= e.stopX;
+          if (passed) e.state = "sputter";
+          if (e.x < -120 || e.x > W + 120) dead = true;
+        } else if (e.state === "sputter") {
+          e.vx *= 0.93;
+          e.x += e.vx;
+          if (Math.random() < 0.4) {
+            parts.push({ type: "smoke", x: e.x + e.dir * 22, y: e.y - 4,
+                         vx: e.dir * 0.3, vy: -0.4, size: 3 + Math.random() * 3, life: 60, max: 80 });
+          }
+          if (!e.wheelGone && Math.random() < 0.06) {
+            e.wheelGone = true;
+            parts.push({ type: "wheel", x: e.x + e.dir * 14, y: H - 18, vx: e.dir * (2.5 + Math.random()),
+                         vy: -2.4, size: 5, rot: 0, life: 200, max: 200, ground: H - 16 });
+            caption("recall issued", e.x, e.y - 44);
+          }
+          if (Math.abs(e.vx) < 0.15) {
+            e.state = "burn";
+            if (!e.wheelGone) caption("recall issued", e.x, e.y - 44);
+          }
+        } else { // burn
+          e.burn++;
+          parts.push({ type: "flame", x: e.x + (Math.random() - 0.5) * 26, y: e.y - 8 - Math.random() * 4,
+                       vx: (Math.random() - 0.5) * 0.4, vy: -0.8 - Math.random() * 0.6,
+                       size: 2 + Math.random() * 3, life: 22, max: 24 });
+          if (e.burn % 2 === 0) {
+            parts.push({ type: "smoke", x: e.x + (Math.random() - 0.5) * 20, y: e.y - 14,
+                         vx: (Math.random() - 0.5) * 0.5, vy: -0.8 - Math.random() * 0.4,
+                         size: 5 + Math.random() * 7, life: 80 + Math.random() * 60, max: 140 });
+          }
+          if (Math.random() < 0.05) {
+            parts.push({ type: "spark", x: e.x + (Math.random() - 0.5) * 24, y: e.y - 8,
+                         vx: (Math.random() - 0.5) * 2, vy: -1 - Math.random() * 1.5,
+                         size: 1.5, life: 30, max: 40 });
+          }
+          if (e.burn === 200) boom(e.x, e.y - 6, 0.9);
+          if (e.burn > 200) {
+            e.alpha -= 0.03;
+            if (e.alpha <= 0) dead = true;
+          }
+        }
+
+      } else if (e.kind === "bird") {
+        if (e.state === "fly") {
+          e.x += e.vx;
+          e.y += Math.sin(t * 0.02 + e.seed) * 0.6;
+          if (e.x >= e.dropX) {
+            e.state = "fall";
+            e.vy = -1.2;
+            caption("acquired for $44B", e.x, e.y - 26);
+            for (var f = 0; f < 6; f++) {
+              parts.push({ type: "feather", x: e.x, y: e.y, vx: (Math.random() - 0.5) * 1.2,
+                           vy: -0.2 - Math.random() * 0.4, size: 1.5, life: 80 + Math.random() * 40, max: 120 });
+            }
+          }
+          if (e.x > W + 30) dead = true;
+        } else {
+          e.vy += 0.16;
+          e.y += e.vy;
+          e.x += 0.4;
+          e.rot += 0.15;
+          if (e.y > H + 30) dead = true;
+        }
+
+      } else if (e.kind === "sat") {
+        e.x += e.vx;
+        e.y += e.vy;
+        e.rot += e.vr;
+        parts.push({ type: "flame", x: e.x + (Math.random() - 0.5) * 6, y: e.y - 4,
+                     vx: (Math.random() - 0.5) * 0.5, vy: -1 - Math.random(),
+                     size: 1.5 + Math.random() * 1.5, life: 16, max: 18 });
+        if (e.y >= e.burnY) {
+          boom(e.x, e.y, 0.7);
+          caption("deorbited", e.x, e.y - 20);
+          dead = true;
+        }
+
+      } else if (e.kind === "crack") {
+        e.life--;
+        if (e.life <= 0) dead = true;
+
+      } else if (e.kind === "cap") {
+        e.life--;
+        e.y -= 0.15;
+        if (e.life <= 0) dead = true;
+      }
+
+      if (dead) fx.splice(i, 1);
+    }
+  }
+
+  function stepParts() {
+    for (var i = parts.length - 1; i >= 0; i--) {
+      var p = parts[i];
+      p.life--;
+      if (p.life <= 0) { parts.splice(i, 1); continue; }
+      if (p.type === "smoke") { p.x += p.vx; p.y += p.vy; p.vy -= 0.004; p.size += 0.12; }
+      else if (p.type === "flame") { p.x += p.vx; p.y += p.vy; p.size *= 0.96; }
+      else if (p.type === "spark") { p.x += p.vx; p.y += p.vy; p.vy += 0.05; }
+      else if (p.type === "debris") {
+        p.x += p.vx; p.y += p.vy; p.vy += 0.12; p.rot += p.vr;
+        if (p.y > H - 12) { p.y = H - 12; p.vy *= -0.4; p.vx *= 0.8; }
+      }
+      else if (p.type === "feather") { p.x += p.vx + Math.sin(p.life * 0.1) * 0.3; p.y += p.vy; }
+      else if (p.type === "wheel") {
+        p.vy += 0.18; p.x += p.vx; p.y += p.vy;
+        if (p.y > p.ground) { p.y = p.ground; p.vy *= -0.35; p.vx *= 0.96; }
+        p.vx *= 0.995; p.rot += p.vx * 0.15;
+      }
+    }
+    if (parts.length > 380) parts.splice(0, parts.length - 380);
+  }
+
+  /* ---------- effect drawing ---------- */
+
+  function drawFx(t) {
+    for (var i = 0; i < fx.length; i++) {
+      var e = fx[i];
+      ctx.globalAlpha = 1;
+
+      if (e.kind === "rocket") {
+        ctx.save();
+        ctx.translate(e.x, e.y);
+        ctx.rotate(e.tilt);
+        ctx.fillStyle = "#dfe5f1";
+        ctx.fillRect(-5, -12, 10, 24);
+        ctx.beginPath(); ctx.moveTo(-5, -12); ctx.lineTo(0, -22); ctx.lineTo(5, -12); ctx.closePath();
+        ctx.fillStyle = "#ff8a70"; ctx.fill();
+        ctx.fillStyle = "#aeb6c6";
+        ctx.beginPath(); ctx.moveTo(-5, 12); ctx.lineTo(-10, 19); ctx.lineTo(-5, 5); ctx.closePath(); ctx.fill();
+        ctx.beginPath(); ctx.moveTo(5, 12); ctx.lineTo(10, 19); ctx.lineTo(5, 5); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = "#4d5b77";
+        ctx.beginPath(); ctx.arc(0, -4, 2, 0, 6.2832); ctx.fill();
+        var fl = 8 + Math.random() * 8;
+        ctx.beginPath(); ctx.moveTo(-3, 12); ctx.lineTo(3, 12); ctx.lineTo(0, 12 + fl); ctx.closePath();
+        ctx.fillStyle = "#ffb054"; ctx.fill();
+        ctx.restore();
+
+      } else if (e.kind === "truck") {
+        ctx.save();
+        ctx.translate(e.x, e.y);
+        ctx.globalAlpha = Math.max(0, e.alpha);
+        if (e.dir === -1) ctx.scale(-1, 1);
+        if (e.wheelGone) ctx.rotate(0.06);
+        // angular wedge silhouette
+        ctx.beginPath();
+        ctx.moveTo(26, 2); ctx.lineTo(24, -4); ctx.lineTo(2, -12); ctx.lineTo(-24, -6);
+        ctx.lineTo(-26, 4); ctx.closePath();
+        ctx.fillStyle = "#a7b0c2"; ctx.fill();
+        var char = Math.min(1, e.burn / 160);
+        if (char > 0) { ctx.fillStyle = "rgba(20,22,28," + (char * 0.8) + ")"; ctx.fill(); }
+        // headlight strip
+        if (e.state === "drive") {
+          ctx.strokeStyle = "#ffd9a0"; ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.moveTo(24, -3); ctx.lineTo(26, 1); ctx.stroke();
+        }
+        // wheels
+        ctx.fillStyle = "#14161c";
+        ctx.beginPath(); ctx.arc(-14, 6, 6, 0, 6.2832); ctx.fill();
+        if (!e.wheelGone) { ctx.beginPath(); ctx.arc(14, 6, 6, 0, 6.2832); ctx.fill(); }
+        ctx.restore();
+
+      } else if (e.kind === "bird") {
+        ctx.save();
+        ctx.translate(e.x, e.y);
+        if (e.state === "fall") ctx.rotate(e.rot);
+        ctx.fillStyle = "#6aa9ff";
+        ctx.beginPath(); ctx.ellipse(0, 0, 5, 3.5, 0, 0, 6.2832); ctx.fill();
+        ctx.beginPath(); ctx.arc(4, -2.5, 2.6, 0, 6.2832); ctx.fill();
+        ctx.fillStyle = "#ffb054";
+        ctx.beginPath(); ctx.moveTo(6.4, -2.8); ctx.lineTo(9, -2); ctx.lineTo(6.4, -1.2); ctx.closePath(); ctx.fill();
+        var flap = e.state === "fly" ? Math.sin(t * 0.03 + e.seed) * 4 : 2;
+        ctx.fillStyle = "#8fb8ff";
+        ctx.beginPath(); ctx.moveTo(-1, 0); ctx.lineTo(-6, -3 - flap); ctx.lineTo(2, -1); ctx.closePath(); ctx.fill();
+        ctx.restore();
+
+      } else if (e.kind === "sat") {
+        ctx.save();
+        ctx.translate(e.x, e.y);
+        ctx.rotate(e.rot);
+        ctx.fillStyle = "#4d6bb5";
+        ctx.fillRect(-17, -3, 11, 6);
+        ctx.fillRect(6, -3, 11, 6);
+        ctx.fillStyle = "#dfe5f1";
+        ctx.fillRect(-4.5, -4.5, 9, 9);
+        ctx.restore();
+
+      } else if (e.kind === "crack") {
+        var a = Math.min(1, e.life / 50);
+        ctx.strokeStyle = "rgba(210,224,255," + (0.55 * a).toFixed(3) + ")";
+        ctx.lineWidth = 1;
+        for (var L = 0; L < e.lines.length; L++) {
+          var pts = e.lines[L];
+          ctx.beginPath();
+          ctx.moveTo(pts[0][0], pts[0][1]);
+          for (var s2 = 1; s2 < pts.length; s2++) ctx.lineTo(pts[s2][0], pts[s2][1]);
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 0.4 * a;
+        ctx.fillStyle = "#cdd8ff";
+        ctx.beginPath(); ctx.arc(e.x, e.y, 2.5, 0, 6.2832); ctx.fill();
+
+      } else if (e.kind === "cap") {
+        var ca = e.life > e.max - 20 ? (e.max - e.life) / 20 : (e.life < 50 ? e.life / 50 : 1);
+        ctx.globalAlpha = 0.8 * ca;
+        ctx.fillStyle = "#cdd8ff";
+        ctx.font = "600 11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+        ctx.textAlign = "center";
+        ctx.fillText(e.text, e.x, e.y);
+        ctx.textAlign = "left";
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawParts() {
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i], a = Math.max(0, p.life / p.max);
+      if (p.type === "smoke") {
+        ctx.globalCompositeOperation = "source-over";
+        ctx.globalAlpha = 0.22 * a;
+        ctx.fillStyle = "#9aa3b5";
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, 6.2832); ctx.fill();
+      } else if (p.type === "flash") {
+        ctx.globalCompositeOperation = "lighter";
+        ctx.globalAlpha = 0.6 * a;
+        ctx.fillStyle = "#ffe6bd";
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.size * (2 - a), 0, 6.2832); ctx.fill();
+      } else if (p.type === "flame") {
+        ctx.globalCompositeOperation = "lighter";
+        ctx.globalAlpha = Math.min(1, a + 0.2);
+        ctx.fillStyle = a > 0.5 ? "#ffd9a0" : "#ff8a5c";
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, 6.2832); ctx.fill();
+      } else if (p.type === "spark") {
+        ctx.globalCompositeOperation = "lighter";
+        ctx.globalAlpha = a;
+        ctx.fillStyle = "#ffc27d";
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, 6.2832); ctx.fill();
+      } else if (p.type === "debris") {
+        ctx.globalCompositeOperation = "source-over";
+        ctx.globalAlpha = a;
+        ctx.fillStyle = "#aeb6c6";
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+        ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+        ctx.restore();
+      } else if (p.type === "feather") {
+        ctx.globalCompositeOperation = "source-over";
+        ctx.globalAlpha = a;
+        ctx.fillStyle = "#8fb8ff";
+        ctx.beginPath(); ctx.arc(p.x, p.y, 1.5, 0, 6.2832); ctx.fill();
+      } else if (p.type === "wheel") {
+        ctx.globalCompositeOperation = "source-over";
+        ctx.globalAlpha = Math.min(1, a * 1.5);
+        ctx.fillStyle = "#14161c";
+        ctx.beginPath(); ctx.arc(p.x, p.y, 5, 0, 6.2832); ctx.fill();
+        ctx.fillStyle = "#3c4352";
+        ctx.beginPath(); ctx.arc(p.x, p.y, 1.6, 0, 6.2832); ctx.fill();
+      }
+    }
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "source-over";
+  }
+
+  /* ---------- main loop ---------- */
+
+  function draw(t) {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "#cdd8ff";
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i];
+      var a = reduceMotion ? s.a : s.a * (0.6 + 0.4 * Math.sin(s.tw + t * 0.001 * s.sp));
+      ctx.globalAlpha = Math.max(a, 0.05);
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, 6.2832);
+      ctx.fill();
+    }
+    for (var m = meteors.length - 1; m >= 0; m--) {
+      var mt = meteors[m];
+      mt.x += mt.vx; mt.y += mt.vy; mt.life--;
+      if (mt.life <= 0 || mt.y > H + 40) { meteors.splice(m, 1); continue; }
+      var g = ctx.createLinearGradient(mt.x, mt.y, mt.x - mt.vx * 11, mt.y - mt.vy * 11);
+      g.addColorStop(0, "rgba(210,224,255,0.9)");
+      g.addColorStop(1, "rgba(210,224,255,0)");
+      ctx.globalAlpha = Math.min(1, mt.life / 24);
+      ctx.strokeStyle = g;
+      ctx.lineWidth = 1.6;
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(mt.x, mt.y);
+      ctx.lineTo(mt.x - mt.vx * 11, mt.y - mt.vy * 11);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    if (!reduceMotion) {
+      stepFx(t);
+      stepParts();
+      drawFx(t);
+      drawParts();
+    }
+  }
+
+  function loop(t) {
+    draw(t);
+    raf = requestAnimationFrame(loop);
+  }
+
+  resize();
+  window.addEventListener("resize", resize);
+
+  if (!reduceMotion) {
+    raf = requestAnimationFrame(loop);
+    setInterval(function () {
+      if (document.hidden || meteors.length > 1 || Math.random() < 0.55) return;
+      meteors.push({
+        x: W * 0.1 + Math.random() * W * 0.8,
+        y: Math.random() * H * 0.3,
+        vx: (Math.random() < 0.5 ? -1 : 1) * (4 + Math.random() * 3),
+        vy: 2 + Math.random() * 2,
+        life: 55
+      });
+    }, 4000);
+    // ambient chaos: on average one effect every ~25 seconds
+    setInterval(function () {
+      if (document.hidden) return;
+      if (Math.random() < 0.45) spawnEffect();
+    }, 11000);
+    // click (or tap) the background to trigger an effect at that spot
+    document.addEventListener("click", function (ev) {
+      if (ev.target && ev.target.closest && ev.target.closest("button, a, .card")) return;
+      spawnEffect(undefined, ev.clientX, ev.clientY);
+    });
+    document.addEventListener("visibilitychange", function () {
+      cancelAnimationFrame(raf);
+      if (!document.hidden) raf = requestAnimationFrame(loop);
+    });
+    // ?fx=rocket|truck|bird|sat|crack — deterministic spawn for testing
+    var q = /[?&]fx=([a-z]+)/.exec(location.search);
+    if (q) {
+      spawnEffect(q[1], W * 0.5, H * 0.35);
+      var last = fx[fx.length - 1];
+      if (last && last.kind === "rocket") { last.fuseY = H * 0.5; last.tumble = false; }
+      if (last && last.kind === "truck") { last.stopX = W * 0.42; }
+    }
+  }
+})();
+</script>
+</body>
+</html>
